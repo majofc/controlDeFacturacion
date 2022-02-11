@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 #Las facturas y resultados demo
-*.xml/
-*.pdf/
+*.xml
+*.pdf
 *.xlsx
