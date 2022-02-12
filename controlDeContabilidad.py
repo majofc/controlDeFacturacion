@@ -2,15 +2,22 @@ import pandas as pd
 import os
 import json
 
+'''
+Obtiene todos los xmls que se encuentran en una carpeta dada y lo regresa como un dataframe, colocando en 
+'''
 def obtenerXML(carpeta):
 	facturas=pd.DataFrame()
 	for archivo in os.listdir(carpeta):
 		print('Leyendo ', archivo)
 		if not archivo.endswith('.xml'): continue
 		f = open(os.path.join(carpeta,archivo), "r", encoding="UTF-8").read()
-		facturas=facturas.append({'xml':f}, ignore_index=True)
+		facturas=facturas.append({'xml':f, 'Nombre de factura':archivo}, ignore_index=True)
 	return facturas
 
+'''
+Recibe el texto del xml de la factura, va al archvio config y obtiene los datos de interes con su tag y attributo.
+Si logra encontrarlos, los agrega al dataframe
+'''
 def extraerTags(factura):
 	for c in config['campos']:
 		#Para cada campo deseado 
@@ -28,6 +35,16 @@ def extraerTags(factura):
 					factura[c]=atributo[1].split('"')[0]
 	return factura
 
+'''
+Obtiene los xml en carpetaOrigen, obtiene los tags de config y guarda el resultado en un nombreResultado
+'''
+def obtenFacturas(carpetaOrigen, nombreResultado):
+	facturas=obtenerXML(carpetaOrigen)
+	facturas=facturas.apply(extraerTags, axis=1)
+	facturas.to_excel(nombreResultado)
+
+
+
 #Obtener el archivo config
 config=None
 with open("config.json", "r") as jsonfile:
@@ -35,12 +52,8 @@ with open("config.json", "r") as jsonfile:
     print("Read successful")
 
 
-#obtener los xmls en las carpetas 
-recibidas=obtenerXML('FacturasRecibidas')
-emitidas=obtenerXML('FacturasEmitidas')
+#Obtener los emitidos
+obtenFacturas('FacturasEmitidas','FacturasEmitidas.xlsx')
+#Obtener los recibidos
+obtenFacturas('FacturasRecibidas','FacturasRecibidas.xlsx')
 
-
-recibidas=recibidas.apply(extraerTags, axis=1)
-recibidas.to_excel('FacturasRecibidas.xlsx')
-emitidas=emitidas.apply(extraerTags, axis=1)
-emitidas.to_excel('FacturasEmitidas.xlsx')
