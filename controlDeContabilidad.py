@@ -25,15 +25,34 @@ def extraerTags(factura):
 		#Buscar el tag o tags
 		for t in config['campos'][c]:
 			#Separar el tag en campo atributo:
-			tag=t.split(' ')
-			elemento=factura['xml'].split('<{}'.format(tag[0]))
-			if len(elemento)>=2:
-				elemento=elemento[1]
-				#Encontrar el atributo
-				atributo=elemento.split('{}="'.format(tag[1]))
-				if len(atributo)>=2:
-					factura[c]=atributo[1].split('"')[0]
+			t=t.split(' ')
+			tag=t[0]
+			atributo=''
+			if len(t)>1: atributo=t[1]
+			#Obtener la info contenida en el tag y atributo
+			factura[c]="|".join(extraerTag(factura['xml'],tag,atributo))	
 	return factura
+
+'''
+Recibe el texto de la factura y regresa un listado con los datos que coincidan con el nombre del tag y el atributo
+'''
+def extraerTag(factura, tag, atributo):
+	resultado=[]
+	elemento=factura.split('<{}'.format(tag[0]),1)
+	if len(elemento)==1:
+		return resultado #Si solo hay uno hay que
+	[elemento, factura]=elemento[1].split('/>',1)
+	#Encontrar el atributo
+	elemento=elemento.split('{}="'.format(atributo),1)
+	if len(elemento)==2:
+		#Si el atriuto si existe, agregarlo al resultado
+		resultado=[elemento[1].split('"',1)[0]]
+	#Si el elemnto existi'o hay uqe llamarlo de nuevo para ver si hay otro tag con la misma estructura
+	resultado.extend(extraerTag(factura, tag, atributo))
+	return resultado
+
+
+
 
 '''
 Obtiene los xml en carpetaOrigen, obtiene los tags de config y guarda el resultado en un nombreResultado

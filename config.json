@@ -1,15 +1,12 @@
 {	"tipo":{"Egreso":"FacturasRecibidas", "Ingreso":"FacturasRecibidas"},
 	"separarPorTipo":true,
-	"campos":{"Fecha de Emisión":["cfdi:Comprobante Fecha"],"Fecha de Pago":[],"Cuenta de Pago":[],
-		"Estado":[],"Reembolsar a":[],"Descripciones pagos":[],"Método de Pago":["cfdi:Comprobante FormaPago"],
+	"campos":{"Fecha de Emisión":["cfdi:Comprobante Fecha"],
+		"Descripciones pagos":["cfdi:Concepto Descripcion"],"Método de Pago":["cfdi:Comprobante FormaPago"],
 		"RFC Emisor":["cfdi:Emisor Rfc"],"Razón Social Emisor":["cfdi:Emisor Nombre"],
 		"RFC Receptor":["cfdi:Receptor Rfc"],"Razón Social Receptor":["cfdi:Receptor Nombre"],
-		"Serie":["cfdi:Comprobante Serie"],"Rubro":[],
+		"Serie":["cfdi:Comprobante Serie"],
 		"Conceptos":["cfdi:Concepto Descripcion"],"Moneda":["cfdi:Comprobante Moneda"],"Tipo de cambio":["cfdi:Comprobante TipoCambio"],
 		"Tipo de Cambio de Banxico":[],"Total Original":["cfdi:Comprobante Total"],
-		"Pagado (incl. reembolsables)":[],"Subtotal":["cfdi:Comprobante SubTotal"],"Descuento":[],"Total":[],
-		"Total Trasladados":[],"Total Retenidos":[],"Subtotal Ajustado":[],
-		"16% Subtotal Ajustado":[],"0% Subtotal Ajustado":[],"Trasladado: IVA":[],
-		"Retenido: IVA":[],"Folio Fiscal":[],"Ver Detalle":[]
+		"Subtotal":["cfdi:Comprobante SubTotal"]
 	}
 }
