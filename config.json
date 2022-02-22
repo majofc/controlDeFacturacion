@@ -1,7 +1,7 @@
 {	"tipo":{"Egreso":"FacturasRecibidas", "Ingreso":"FacturasRecibidas"},
 	"separarPorTipo":true,
 	"campos":{"Fecha de Emisión":["cfdi:Comprobante Fecha"],
-		"Descripciones pagos":["cfdi:Concepto Descripcion"],"Método de Pago":["cfdi:Comprobante FormaPago"],
+		"Método de Pago":["cfdi:Comprobante FormaPago"],
 		"RFC Emisor":["cfdi:Emisor Rfc"],"Razón Social Emisor":["cfdi:Emisor Nombre"],
 		"RFC Receptor":["cfdi:Receptor Rfc"],"Razón Social Receptor":["cfdi:Receptor Nombre"],
 		"Serie":["cfdi:Comprobante Serie"],
